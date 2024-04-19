@@ -1,0 +1,24 @@
+<div id="main">
+  <div>
+    <h1>Hallo, Welt!</h1>
+
+    <span class="counter">Zustand:  <b>{{this.count}}</b> </span>
+
+    <p>
+      Dieser Text ist Teil des Host-Frontends. Hier sind 2 weitere Komponenten
+      als Web-Components eingebunden.
+      <br />
+      <b>Wichtig dabei</b>: Diese Komponenten werden von einem anderen Port
+      geladen, haben also eine andere "Quelle".
+    </p>
+
+    <app-remote-web-component
+      moduleAddress="http://localhost:5000/webcomponent-react.js"
+      styleAddress="http://localhost:5000/style.css"
+      name="webcomponent-react"
+
+      [count]="count"
+      (countUpdated)="count = $event"
+    ></app-remote-web-component>
+  </div>
+</div>

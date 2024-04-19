@@ -1,0 +1,14 @@
+<!-- This div Element is used as a loader / error display. on loading, it gets replaced with the microfrontend -->
+<div class="root" #child>
+  <div *ngIf="this.error === undefined; else errorMessage">
+    <b>Loading component</b>
+    <br />
+    <span> {{ this.moduleAddress }}</span>
+  </div>
+</div>
+
+<ng-template #errorMessage>
+  <b>Failed to load component</b>
+  <br />
+  <span> {{ this.error }}</span>
+</ng-template>

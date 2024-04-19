@@ -1,0 +1,18 @@
+div#main {
+  padding: 3em;
+  background-color: #121212;
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+
+  > div {
+    max-width: 64rem;
+    border: wheat solid 1px;
+    padding: 1em;
+    border-radius: 10px;
+  }
+
+}
