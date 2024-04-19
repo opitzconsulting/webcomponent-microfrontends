@@ -1,7 +1,6 @@
 // The web-component build process uses this as the export
 // This defines a web-component which starts the Web-App that was defined here.
-import Frontend from "./Frontend"
-import { Root, createRoot } from "react-dom/client"
+import createFrontend from "./Frontend"
 
 export default function register(name: string) {
 
@@ -14,22 +13,24 @@ export default function register(name: string) {
 }
 
 class MicrofrontendWebComponent extends HTMLElement {
-  declare count: number
-  declare styleAddress: string | undefined
+  count: number = 0
+  #updateCount?: (count: number) => void
+
+
+  declare styleAddress?: string
   #root!: ShadowRoot
-  #reactRoot: Root | undefined
+
+  render() {
+    if(this.#updateCount) {
+      this.#updateCount(this.count)
+    }
+  }
 
   private emitCountUpdate(newCount: number) {
     const event = new CustomEvent("count-updated", {detail: newCount})
 
     this.dispatchEvent(event)
   }
-
-  render() {
-    this.#reactRoot!.render(<Frontend count={this.count} setCount={(val) => this.emitCountUpdate(val)} />)
-  }
-
-
 
   connectedCallback() {
     this.#root = this.attachShadow({mode: "open"})
@@ -42,10 +43,10 @@ class MicrofrontendWebComponent extends HTMLElement {
     style.href = styleAddress
     this.#root.appendChild(style)
 
-
     this.#root.appendChild(mount)
-    this.#reactRoot = createRoot(mount)
-    this.render()
+
+    const updateCount = createFrontend(mount, this.count ?? 0, (val) => this.emitCountUpdate(val))
+    this.#updateCount = updateCount
   }
 }
 

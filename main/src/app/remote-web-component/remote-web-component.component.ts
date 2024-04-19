@@ -65,15 +65,13 @@ export class RemoteWebComponentComponent implements OnInit, OnChanges {
 
       // @ts-ignore
       this.webcomponent.count = this.count;
-      // @ts-ignore
-      this.webcomponent.setCount = (count: number) => {
-        this.countUpdated.emit(count)
-      }
+
+      this.webcomponent.addEventListener("count-updated", (event) => {
+        // @ts-ignore
+        this.countUpdated.emit(event.detail)
+      })
 
       this.child.nativeElement.appendChild(this.webcomponent)
-
-
-
     }
     catch(err) {
       console.error(err)

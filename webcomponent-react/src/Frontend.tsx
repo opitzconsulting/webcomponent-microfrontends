@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 interface Props {
   count: number,
-  setCount: React.Dispatch<React.SetStateAction<number>>
+  setCount: (newCount: number) => void
 }
 
 

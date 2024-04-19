@@ -1,7 +1,53 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+
+defineProps<{ count: number }>()
+defineEmits<{ (e:"count", count: number): void}>()
+
+const localCount = ref(0)
+
+</script>
+
+<template>
+<div class="root">
+  <div>
+    <a href="https://vitejs.dev" target="_blank">
+      <img src="/vite.svg" class="logo" alt="Vite logo" />
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+      <img src="../assets/vue.svg" class="logo vue" alt="Vue logo" />
+    </a>
+  </div>
+
+  <h1>Vite + Vue3</h1>
+
+  <div class="card">
+    <button type="button" @click="$emit('count', count+1)">Übermittelter Zustand: {{ count }}</button>
+    <button type="button" @click="localCount++">Lokaler Zustand: {{ localCount }}</button>
+  </div>
+
+  <div>
+    Diese Komponente ist eine Vue App, welche von einem anderen Server geladen wird.
+  </div>
+</div>
+</template>
+
+<style lang="scss">
+* {
+  margin: 0
+}
 .root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  padding: 1em;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  gap: 1em;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -61,3 +107,4 @@
   }
 }
 
+</style>

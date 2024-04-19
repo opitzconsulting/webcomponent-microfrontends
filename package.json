@@ -4,7 +4,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "host": "concurrently 'npm:host:*'",
+    "host:wc-react": "cd webcomponent-react && npm run host",
+    "host:wc-vue": "cd webcomponent-vue && npm run host",
+    "host:wc-vanilla": "cd webcomponent-vanilla && npm run host",
+    "build": "concurrently 'npm:build:*'",
+    "build:wc-react": "cd webcomponent-react && npm run build",
+    "build:wc-vue": "cd webcomponent-vue && npm run build",
+    "build:wc-vanilla": "cd webcomponent-vanilla && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -12,9 +19,14 @@
   "description": "",
   "workspaces": [
     "main",
-    "webcomponent-react"
+    "webcomponent-react",
+    "webcomponent-vue",
+    "webcomponent-vanilla"
   ],
   "dependencies": {
     "modern-normalize": "^2.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

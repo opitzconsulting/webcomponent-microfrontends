@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-spa": "tsc && vite build",
+    "build": "tsc && vite build -c vite-webcomponent.config.ts",
+    "watch": "tsc && vite build -w -c vite-webcomponent.config.ts",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "host": "http-server dist --cors -p 5002"
   },
   "dependencies": {
     "vue": "^3.4.21"

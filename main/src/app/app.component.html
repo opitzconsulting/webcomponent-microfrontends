@@ -2,7 +2,9 @@
   <div>
     <h1>Hallo, Welt!</h1>
 
-    <span class="counter">Zustand:  <b>{{this.count}}</b> </span>
+    <span class="counter"
+      >Zustand: <b>{{ this.count }}</b>
+    </span>
 
     <p>
       Dieser Text ist Teil des Host-Frontends. Hier sind 2 weitere Komponenten
@@ -13,10 +15,22 @@
     </p>
 
     <app-remote-web-component
-      moduleAddress="http://localhost:5000/webcomponent-react.js"
-      styleAddress="http://localhost:5000/style.css"
+      moduleAddress="http://localhost:5000/webcomponent.js"
       name="webcomponent-react"
+      [count]="count"
+      (countUpdated)="count = $event"
+    ></app-remote-web-component>
 
+    <app-remote-web-component
+      moduleAddress="http://localhost:5001/webcomponent.js"
+      name="webcomponent-vanilla"
+      [count]="count"
+      (countUpdated)="count = $event"
+    ></app-remote-web-component>
+
+    <app-remote-web-component
+      moduleAddress="http://localhost:5002/webcomponent.js"
+      name="webcomponent-vue"
       [count]="count"
       (countUpdated)="count = $event"
     ></app-remote-web-component>
