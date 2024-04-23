@@ -1,7 +1,7 @@
 // The web-component build process uses this as the export
 // This defines a web-component which starts the Web-App that was defined here.
-import { Ref, createApp, ref } from "vue"
-import Frontend from "./components/Frontend.vue"
+import { defineCustomElement } from "vue"
+import Frontend from "./components/Frontend.ce.vue"
 
 
 export default function register(name: string) {
@@ -14,14 +14,15 @@ export default function register(name: string) {
     customElements.define(name, MicrofrontendWebComponent)
 }
 
-class MicrofrontendWebComponent extends HTMLElement {
-  declare count: number
-  declare styleAddress?: string
-  #root!: ShadowRoot
 
-  #state = ref(0)
+const VueWebComponent = defineCustomElement(Frontend)
+
+// See also: https://vuejs.org/guide/extras/web-components.html
+class MicrofrontendWebComponent extends VueWebComponent {
+  declare count: number
+
   render() {
-    this.#state.value = this.count
+    // Vue's defineCustomElement already does everything for us :)
   }
 
   private emitCountUpdate(newCount: number) {
@@ -31,25 +32,14 @@ class MicrofrontendWebComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.#root = this.attachShadow({mode: "open"})
-    const mount = document.createElement("div")
+    super.connectedCallback()
 
-    const styleAddress = this.styleAddress ?? import.meta.env.BASE_URL + "style.css"
+    // Register update listener
+    super.addEventListener("count", (ev) => {
+      const [count] = (ev as any).detail as [number]
+      this.emitCountUpdate(count)
+    })
 
-    const style = document.createElement("link");
-    style.rel = "stylesheet"
-    style.href = styleAddress
-    this.#root.appendChild(style)
-
-    this.#root.appendChild(mount)
-
-    createApp(Frontend, {
-      count: this.#state,
-      onCount: (count: Ref<number>) => {
-        debugger
-        this.emitCountUpdate(count.value)
-      }
-    }).mount(mount);
   }
 }
 

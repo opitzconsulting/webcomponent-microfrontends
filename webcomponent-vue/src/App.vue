@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Frontend from "./components/Frontend.vue"
+import Frontend from "./components/Frontend.ce.vue"
 
 const count = ref(0)
 

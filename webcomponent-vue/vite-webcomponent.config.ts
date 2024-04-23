@@ -5,7 +5,6 @@ import {resolve} from "node:path"
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   define: {
@@ -13,7 +12,6 @@ export default defineConfig({
   },
   base: "http://localhost:5002/",
   build: {
-    minify: false,
     lib: {
       entry: resolve(__dirname, "src/webcomponent.ts"),
       formats: [
